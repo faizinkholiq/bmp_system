@@ -12,8 +12,8 @@ class Vessel extends CI_Controller {
 	public function index()
 	{
         $d['content_view'] = 'vessel/index';
-		// $this->load->view('dashboard', $d);
-		$this->load->view('login');
+		$this->load->view('dashboard', $d);
+		// $this->load->view('login');
     }
     
     public function report()
@@ -23,8 +23,12 @@ class Vessel extends CI_Controller {
     }
     
     public function data()
-    {
-        $data['data'] = $this->vessel_model->get_data();
+    {  
+
+        $d['start_date'] = $this->input->get('start_date');
+        $d['finish_date'] = $this->input->get('finish_date');
+
+        $data['data'] = $this->vessel_model->get_data($d);
         echo json_encode($data);
     }
 
@@ -48,6 +52,8 @@ class Vessel extends CI_Controller {
     public function create()
     {
         $nd = $this->get_input();
+        print_r($nd);
+        exit;
 
         if($this->vessel_model->create($nd)){
             $data = [

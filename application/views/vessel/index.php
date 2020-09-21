@@ -6,22 +6,35 @@
 
 <div class="row">
     <div class="col">
+            <!-- Toast Alert -->
+        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-delay="3000" data-autohide="true" style="position: fixed; z-index: 1; right: 10px; top: 60px;">
+  <div class="toast-header">
+    <strong class="mr-auto">Bootstrap</strong>
+    <small>11 mins ago</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Hello, world! This is a toast message.
+  </div>
+</div>
     <div class="card">
         <div class="card-header">
-            Vessel List
+            Master Vessel List
         </div>
         <div class="card-body">
             <div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#form_modal_vessel">Add</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_delete">Delete</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Export</button>
+                <button type="button" class="btn btn-primary" onclick="addAction()"><i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-primary" onclick="detailAction()"><i class="fa fa-list-alt"></i></button>
+                <button type="button" class="btn btn-primary" onclick="editAction()"><i class="fa fa-edit"></i></button>
+                <button type="button" class="btn btn-primary" onclick="deleteAction()"><i class="fa fa-trash"></i></button>
             </div><hr/>
-            <table id="datatable_vessel" class="table table-bordered table-hover" style="width: 100%;">
+            <table id="datatable_vessel" class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th rowspan="2" scope="col">#</th>
                         <th rowspan="2" scope="col">Id</th>
+                        <th rowspan="2" scope="col">#</th>
                         <th rowspan="2" scope="col">Vessel Name</th>
                         <th rowspan="2" scope="col">Type</th>
                         <th rowspan="2" scope="col">Owner / Manager</th>
@@ -59,8 +72,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form id="form_vessel" action="<?=site_url() ?>/vessel/create" method="post" enctype="multipart/form-data">
+                    <div class="modal-body" style="padding: 25px 40px;">
+                        <form id="form_vessel" action="" method="post" enctype="multipart/form-data">
                             <input type="hidden" id="form_id" name="id">
                             <div class="form-group row">
                                 <label for="form_name" class="col-sm-2 col-form-label">Name</label>
@@ -71,7 +84,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="form_type" class="col-sm-2 col-form-label">Type</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-5">
                                     <select class="form-control" name="type" id="form_type">
                                         <option value="">- Please select type -</option>
                                         <option value="Tug Boat">Tug Boat</option>
@@ -82,14 +95,14 @@
                             </div>
                             <div class="form-group row">
                                 <label for="form_owner" class="col-sm-2 col-form-label">Owner/Manager</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <input type="text" class="form-control" id="form_owner"
                                         placeholder="Owner / Manager Name">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="form_built" class="col-sm-2 col-form-label">Built</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-5">
                                     <select class="form-control" name="built" id="form_built">
                                         <option value="">- Please select Built Year -</option>
                                         <?php 
@@ -102,40 +115,41 @@
                             </div>
                             <div class="form-group row">
                                 <label for="form_gt" class="col-sm-2 col-form-label">GT</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-5">
                                     <input type="text" class="form-control" name="gt" id="form_gt" placeholder="GT">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="form_flag" class="col-sm-2 col-form-label">Flag</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-5">
                                     <input type="text" class="form-control" name="flag" id="form_flag"
                                         placeholder="Flag">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="form_class" class="col-sm-2 col-form-label">Class</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-5">
                                     <input type="text" class="form-control" name="class" id="form_class"
                                         placeholder="Class">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="form_period_start" class="col-sm-2 col-form-label">Start Date</label>
+                                <label for="form_period_start" class="col-sm-2 col-form-label">Period</label>
                                 <div class="col-sm-10">
-                                    <input type="date" name="period_start" class="form-control" id="form_period_start">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="form_period_finish" class="col-sm-2 col-form-label">End Date</label>
-                                <div class="col-sm-10">
-                                    <input type="date" name="period_finish" class="form-control"
-                                        id="form_period_finish">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <input type="date" name="period_start" class="form-control" id="form_period_start">
+                                        </div>
+                                        <span style="font-weight: bold; font-size: 20px;">-</span>
+                                        <div class="col-sm-4">
+                                            <input type="date" name="period_finish" class="form-control" id="form_period_finish">                                            
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="form_tsi" class="col-sm-2 col-form-label">TSI</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">IDR</span>
@@ -149,7 +163,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="form_banker_clause" class="col-sm-2 col-form-label">Banker Clause</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <input type="text" name="banker_clause" class="form-control" id="form_banker_clause"
                                         placeholder="Banker Clause">
                                 </div>
@@ -157,37 +171,37 @@
                             <div class="form-group row">
                                 <label for="form_exist_insurance" class="col-sm-2 col-form-label">Existing
                                     Insurance</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <input type="text" name="exist_insurance" class="form-control"
                                         id="form_exist_insurance" placeholder="Existing Insurance">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="form_po" class="col-sm-2 col-form-label">PO</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <input type="text" name="po" class="form-control" id="form_po" placeholder="PO">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="form_polis" class="col-sm-2 col-form-label">POLIS</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <input type="text" name="polis" class="form-control" id="form_polis"
                                         placeholder="Polis">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="form_keterangan" class="col-sm-2 col-form-label">Keterangan</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <textarea name="keterangan" class="form-control" id="form_keterangan"
                                         rows="3"></textarea>
                                 </div>
                             </div>
-                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="submitFormAction()">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -231,6 +245,28 @@
 
     $(function () {
         reloadDt();
+
+        $("#form_vessel").submit(function(){
+            $.ajax({
+              url:$(this).attr("action"),
+              data:$(this).serialize(),
+              type:$(this).attr("method"),
+              dataType: 'html',
+              beforeSend: function() {
+                alert('loading');
+                return false;								
+              },
+              success:function(result) {
+                $('#form_modal_vessel').modal('hide');
+                
+                if(result.success){
+                }else{
+                }             
+              }
+            });
+
+            return false;
+        });
     });
 
     function reloadDt() {
@@ -239,77 +275,95 @@
             "ajax": urls.data,
             "columns": [{
                     "data": "id",
-                    "orderable": false,
-                },
-                {
-                    "data": "id"
-                },
-                {
-                    "data": "name"
-                },
-                {
-                    "data": "type"
-                },
-                {
-                    "data": "owner"
-                },
-                {
-                    "data": "built"
-                },
-                {
-                    "data": "gt"
-                },
-                {
-                    "data": "flag"
-                },
-                {
-                    "data": "class"
-                },
-                {
-                    "data": "period_start"
-                },
-                {
-                    "data": "period_finish"
-                },
-                {
-                    "data": "tsi"
-                },
-                {
-                    "data": "banker_clause"
-                },
-                {
-                    "data": "exist_insurance"
-                },
-                {
-                    "data": "po"
-                },
-                {
-                    "data": "polis"
-                },
-                {
-                    "data": "keterangan"
-                },
-            ],
-            "columnDefs": [
-                {
-                    "targets": [1],
                     "visible": false,
                     "orderable": false,
                     "searchable": false,
-                }
+                },
+                {
+                    "data": "id",
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "10px"
+                },
+                {
+                    "data": "name",
+                    "width": "200px"
+                },
+                {
+                    "data": "type",
+                    "width": "70px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "owner",
+                    "width": "180px"
+                },
+                {
+                    "data": "built",
+                    "width": "50px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "gt",
+                    "width": "50px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "flag",
+                    "width": "70px"
+                },
+                {
+                    "data": "class",
+                    "width": "50px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "period_start",
+                    "width": "100px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "period_finish",
+                    "width": "100px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "tsi",
+                    "width": "120px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "banker_clause",
+                    "width": "200px",
+                },
+                {
+                    "data": "exist_insurance",
+                    "width": "100px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "po",
+                    "width": "100px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "polis",
+                    "width": "120px",
+                    "className": "text-center",
+                },
+                {
+                    "data": "keterangan",
+                    "width": "350px"
+                },
             ],
-            scrollY:        "280px",
+            scrollY:        "500px",
             scrollX:        true,
             scrollCollapse: true,
             paging:         true,
-            fixedColumns:   {
-                leftColumns: 1,
-                rightColumns: 1
-            }
         });
 
         table.on('order.dt search.dt', function () {
-            table.column(0, {
+            table.column(1, {
                 search: 'applied',
                 order: 'applied'
             }).nodes().each(function (cell, i) {
@@ -329,33 +383,20 @@
     }
 
     function addAction() {
-
+        $('#form_modal_vessel').modal('show');
+        $('#form_vessel').attr('action', urls.create);
+        $('#form_vessel')[0].reset();
     }
 
     function detailAction() {
-
+        $('#form_modal_vessel').modal('show');
     }
 
     function editAction() {
-
-    }
-
-    function editAction() {
-
-    }
-
-    function submitFormAction() {
-        console.log('sini');
-
-        $("#form_vessel").submit(function( event ) {
-        console.log('sini');
-        alert( "Handler for .submit() called." );
-        event.preventDefault();
-        });
-
+        $('#form_modal_vessel').modal('show');
     }
 
     function deleteAction() {
-
+        $('#modal_delete').modal('show');
     }
 </script>

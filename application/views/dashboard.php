@@ -292,10 +292,10 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="active">
-                    <a href="#"><i class="fa fa-wrench"></i>Master Vessel List</a>
+                    <a href="<?=site_url('/vessel') ?>"><i class="fa fa-wrench"></i>Master Vessel List</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-file-text"></i>Report</a>
+                    <a href="<?=site_url('/vessel/report') ?>"><i class="fa fa-file-text"></i>Report</a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-sign-out"></i>Logout</a>

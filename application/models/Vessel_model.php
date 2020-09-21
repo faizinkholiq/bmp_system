@@ -7,11 +7,11 @@
     {   
         if(!empty($p)){
             if(!empty($p['start_date'])){
-                $this->db->where('period_start =<', $p['start_date']);
+                $this->db->where("period_start >= '{$p['start_date']}'");
             }
 
             if(!empty($p['finish_date'])){
-                $this->db->where('period_finish >=', $p['finish_date']);
+                $this->db->where("period_finish <= '{$p['finish_date']}'");
             }
         }
 
