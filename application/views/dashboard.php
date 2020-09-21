@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?=base_url() ?>assets/bootstrap/4.5.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?=base_url() ?>assets/DataTables/DataTables-1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?=base_url() ?>assets/font-awesome-4.7.0/css/font-awesome.min.css">
 
     <!-- JS -->
     <script src="<?=base_url() ?>assets/jquery/3.5.1/dist/jquery.min.js"></script>
@@ -93,7 +94,7 @@
             text-decoration: none;
             color: #757575;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 14px;
         }
 
         .sidebar-nav>li>a:hover,
@@ -104,8 +105,8 @@
         }
 
         .sidebar-nav>li>a i.fa {
-            font-size: 24px;
-            width: 60px;
+            font-size: 16px;
+            width: 35px;
         }
 
         #navbar-wrapper {
@@ -291,13 +292,13 @@
             </div>
             <ul class="sidebar-nav">
                 <li class="active">
-                    <a href="#"><i class="fa fa-home"></i>Home</a>
+                    <a href="#"><i class="fa fa-wrench"></i>Master Vessel List</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-plug"></i>Plugins</a>
+                    <a href="#"><i class="fa fa-file-text"></i>Report</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-user"></i>Users</a>
+                    <a href="#"><i class="fa fa-sign-out"></i>Logout</a>
                 </li>
             </ul>
         </aside>
@@ -306,7 +307,7 @@
             <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <a href="#" class="navbar-brand" id="sidebar-toggle">x</a>
+                        <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
             </nav>

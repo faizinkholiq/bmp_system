@@ -1,3 +1,9 @@
+<style>
+    .table thead tr th{
+        text-align: center!important;
+    }
+</style>
+
 <div class="row">
     <div class="col">
     <div class="card">
@@ -232,7 +238,8 @@
             "processing": true,
             "ajax": urls.data,
             "columns": [{
-                    "data": "id"
+                    "data": "id",
+                    "orderable": false,
                 },
                 {
                     "data": "id"
@@ -283,11 +290,7 @@
                     "data": "keterangan"
                 },
             ],
-            "columnDefs": [{
-                    "targets": [0],
-                    "visible": true,
-                    "searchable": false,
-                },
+            "columnDefs": [
                 {
                     "targets": [1],
                     "visible": false,

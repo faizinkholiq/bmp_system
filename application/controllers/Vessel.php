@@ -12,7 +12,8 @@ class Vessel extends CI_Controller {
 	public function index()
 	{
         $d['content_view'] = 'vessel/index';
-		$this->load->view('dashboard', $d);
+		// $this->load->view('dashboard', $d);
+		$this->load->view('login');
     }
     
     public function report()
