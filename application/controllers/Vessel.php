@@ -54,8 +54,6 @@ class Vessel extends CI_Controller {
     public function create()
     {
         $nd = $this->get_input();
-        print_r($nd);
-        exit;
 
         if($this->vessel_model->create($nd)){
             $data = [

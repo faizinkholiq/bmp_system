@@ -1,72 +1,98 @@
 <style>
-    .table thead tr th{
-        text-align: center!important;
+    .table thead tr th {
+        text-align: center !important;
     }
-    .hidden{
-        display:none!important;
+
+    .hidden {
+        display: none !important;
     }
 </style>
 
 <div class="row">
     <div class="col">
-            <!-- Toast Alert -->
-        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-delay="3000" data-autohide="true" style="position: fixed; z-index: 1; right: 10px; top: 60px;">
-  <div class="toast-header">
-    <strong class="mr-auto">Bootstrap</strong>
-    <small>11 mins ago</small>
-    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="toast-body">
-    Hello, world! This is a toast message.
-  </div>
-</div>
-    <div class="card">
-        <div class="card-header">
-            Master Vessel List
+        <!-- Toast Alert -->
+        <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-delay="3000" data-autohide="true"
+            style="position: fixed; z-index: 1; right: 10px; top: 60px;">
+            <div class="toast-header">
+                <strong class="mr-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
         </div>
-        <div class="card-body">
-            <div>
-                <button type="button" class="btn btn-primary" onclick="addAction()"><i class="fa fa-plus"></i></button>
-                <button type="button" class="btn btn-primary" onclick="detailAction()"><i class="fa fa-list-alt"></i></button>
-                <button type="button" class="btn btn-primary" onclick="editAction()"><i class="fa fa-edit"></i></button>
-                <button type="button" class="btn btn-primary" onclick="deleteModal()"><i class="fa fa-trash"></i></button>
-            </div><hr/>
-            <table id="datatable_vessel" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th rowspan="2" scope="col">Id</th>
-                        <th rowspan="2" scope="col">#</th>
-                        <th rowspan="2" scope="col">Vessel Name</th>
-                        <th rowspan="2" scope="col">Type</th>
-                        <th rowspan="2" scope="col">Owner / Manager</th>
-                        <th rowspan="2" scope="col">Built</th>
-                        <th rowspan="2" scope="col">GT</th>
-                        <th rowspan="2" scope="col">Flag</th>
-                        <th rowspan="2" scope="col">Class</th>
-                        <th colspan="2" scope="col">Period</th>
-                        <th rowspan="2" scope="col">TSI</th>
-                        <th rowspan="2" scope="col">Banker Clause</th>
-                        <th rowspan="2" scope="col">Existing Insurance</th>
-                        <th rowspan="2" scope="col">PO</th>
-                        <th rowspan="2" scope="col">Polis</th>
-                        <th rowspan="2" scope="col">Keterangan</th>
-                    </tr>
-                    <tr>
-                        <th>Start</th>
-                        <th>Finish</th>
-                    </tr>
-                </thead>
-            </table>
+        <div class="card">
+            <div class="card-header">
+                Master Vessel List
+            </div>
+            <div class="card-body">
+                <div>
+                    <button type="button" class="btn btn-primary" onclick="addAction()" style="
+                        border: none;
+                        background: white;
+                        color: #383838;
+                        font-weight: bold;
+                        box-shadow: 0px 1px 5px 0px #848484;
+                    "><i class="fa fa-plus"></i></button>
+                    <button type="button" class="btn btn-primary" onclick="detailAction()" style="
+                        border: none;
+                        background: white;
+                        color: #383838;
+                        font-weight: bold;
+                        box-shadow: 0px 1px 5px 0px #848484;
+                    "><i class="fa fa-list-alt"></i></button>
+                    <button type="button" class="btn btn-primary" onclick="editAction()" style="
+                        border: none;
+                        background: white;
+                        color: #383838;
+                        font-weight: bold;
+                        box-shadow: 0px 1px 5px 0px #848484;
+                    "><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-primary" onclick="deleteModal()" style="
+                        border: none;
+                        background: #d63031; 
+                        font-weight: bold;
+                        box-shadow: 0px 1px 5px 0px #848484;
+                    "><i class="fa fa-trash"></i></button>
+                </div>
+                <hr />
+                <table id="datatable_vessel" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" scope="col">Id</th>
+                            <th rowspan="2" scope="col">#</th>
+                            <th rowspan="2" scope="col">Vessel Name</th>
+                            <th rowspan="2" scope="col">Type</th>
+                            <th rowspan="2" scope="col">Owner / Manager</th>
+                            <th rowspan="2" scope="col">Built</th>
+                            <th rowspan="2" scope="col">GT</th>
+                            <th rowspan="2" scope="col">Flag</th>
+                            <th rowspan="2" scope="col">Class</th>
+                            <th colspan="2" scope="col">Period</th>
+                            <th rowspan="2" scope="col">TSI</th>
+                            <th rowspan="2" scope="col">Banker Clause</th>
+                            <th rowspan="2" scope="col">Existing Insurance</th>
+                            <th rowspan="2" scope="col">PO</th>
+                            <th rowspan="2" scope="col">Polis</th>
+                            <th rowspan="2" scope="col">Keterangan</th>
+                        </tr>
+                        <tr>
+                            <th>Start</th>
+                            <th>Finish</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
-    </div>
-        
+
 
 
         <!-- Modal Form-->
-        <div class="modal fade" id="form_modal_vessel" tabindex="-1" role="dialog" aria-labelledby="form_modal_vessel_label"
-            aria-hidden="true">
+        <div class="modal fade" id="form_modal_vessel" tabindex="-1" role="dialog"
+            aria-labelledby="form_modal_vessel_label" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -99,7 +125,7 @@
                             <div class="form-group row">
                                 <label for="form_owner" class="col-sm-2 col-form-label">Owner/Manager</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="form_owner"
+                                    <input type="text" name="owner" class="form-control" id="form_owner"
                                         placeholder="Owner / Manager Name">
                                 </div>
                             </div>
@@ -141,11 +167,13 @@
                                 <div class="col-sm-10">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <input type="date" name="period_start" class="form-control" id="form_period_start">
+                                            <input type="date" name="period_start" class="form-control"
+                                                id="form_period_start">
                                         </div>
                                         <span style="font-weight: bold; font-size: 20px;">-</span>
                                         <div class="col-sm-4">
-                                            <input type="date" name="period_finish" class="form-control" id="form_period_finish">                                            
+                                            <input type="date" name="period_finish" class="form-control"
+                                                id="form_period_finish">
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +230,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary" id="btn_form_save">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="btn_form_edit">Edit</button>
                     </div>
                     </form>
                 </div>
@@ -221,7 +250,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    Are you sure to delete this data?
+                        Are you sure to delete this data?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -250,23 +279,27 @@
     $(function () {
         reloadDt();
 
-        $("#form_vessel").submit(function(){
+        $("#form_vessel").submit(function () {
             $.ajax({
-              url:$(this).attr("action"),
-              data:$(this).serialize(),
-              type:$(this).attr("method"),
-              dataType: 'html',
-              beforeSend: function() {
-                alert('loading');
-                return false;								
-              },
-              success:function(result) {
-                $('#form_modal_vessel').modal('hide');
-                
-                if(result.success){
-                }else{
-                }             
-              }
+                url: $(this).attr("action"),
+                data: $(this).serialize(),
+                type: $(this).attr("method"),
+                dataType: 'html',
+                // beforeSend: function () {
+                //     alert('loading');
+                //     return false;
+                // },
+                success: function (result) {
+                    result = JSON.parse(result); 
+                    if (result.success) {
+                        alert(result.message);
+                        $('#form_vessel')[0].reset();
+                        $('#form_modal_vessel').modal('hide');
+                        table.ajax.reload();
+                    } else {
+                        alert(result.message);
+                    }
+                }
             });
 
             return false;
@@ -362,10 +395,10 @@
                 },
             ],
             // scrollY:        screen.height - 490 + 'px',
-            scrollY:        '500px',
-            scrollX:        true,
+            scrollY: '500px',
+            scrollX: true,
             scrollCollapse: true,
-            paging:         true,
+            paging: true,
         });
 
         table.on('order.dt search.dt', function () {
@@ -394,36 +427,74 @@
         $('#form_modal_vessel').modal('show');
         $('#form_vessel').attr('action', urls.create);
         $('#form_vessel')[0].reset();
+        enableForm();
     }
 
     function detailAction() {
-        $('#form_vessel').attr('action', urls.edit);
-        $('#form_modal_vessel').modal('show');
+        if (selected_id != undefined) {
+            $('#form_modal_vessel').modal('show');
+            $('#form_vessel').attr('action', urls.edit);
+            $.getJSON(urls.detail+'/'+selected_id, function(data){
+                setFormInfo(data.data);
+                disableForm();
+            });
+        } else {
+            alert('Please select a row first');
+        }
     }
 
     function editAction() {
-        $('#form_vessel').attr('action', urls.edit);
-        $('#form_modal_vessel').modal('show');
+        if (selected_id != undefined) {
+            $('#form_modal_vessel').modal('show');
+            $('#form_vessel').attr('action', urls.edit);
+            $.getJSON(urls.detail+'/'+selected_id, function(data){
+                setFormInfo(data.data);
+                enableForm();
+            });
+        } else {
+            alert('Please select a row first');
+        }
     }
 
     function deleteModal() {
-        if(selected_id != undefined){
+        if (selected_id != undefined) {
             $('#modal_delete').modal('show');
-        }else{
-            $('.toast').toast('show');
+        } else {
+            alert('Please select a row first');
         }
     }
 
     function deleteAction() {
-        $.get(urls.delete+'/'+selected_id, function(result){
+        $.get(urls.delete + '/' + selected_id, function (result) {
             result = JSON.parse(result);
             $('#modal_delete').modal('hide');
-            if(result.success){
-                alert('success');
+            if (result.success) {
+                alert(result.message);
                 table.ajax.reload();
-            }else{
-                alert('gagal');
+            } else {
+                alert(result.message);
             }
-        });   
+        });
+    }
+
+    function setFormInfo(data){
+        $.each(data, function(i, r){
+            $('#form_vessel input[name="'+i+'"]').val(r);
+            $('#form_vessel select[name="'+i+'"]').val(r);
+        });
+    }
+
+    function enableForm(){
+        $('#form_vessel input').attr('disabled', false);
+        $('#form_vessel select').attr('disabled', false);
+        $('#btn_form_save').show();
+        $('#btn_form_edit').hide();
+    }
+
+    function disableForm(){
+        $('#form_vessel input').attr('disabled', true);
+        $('#form_vessel select').attr('disabled', true);
+        $('#btn_form_save').hide();
+        $('#btn_form_edit').show();
     }
 </script>

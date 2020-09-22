@@ -18,9 +18,9 @@
         return $this->db->get('vessel_list')->result_array();
     }
 
-    public function get_detail()
+    public function get_detail($id)
     {
-        return $this->db->get('vessel_list')->row_array();
+        return $this->db->get_where('vessel_list', ['id'=>$id])->row_array();
     }
 
     public function create($data)
@@ -35,7 +35,7 @@
         $this->db->trans_start();
         $this->db->where('id', $data['id']);
         unset($data['id']);
-        $this->db->insert('vessel_list', $data);
+        $this->db->update('vessel_list', $data);
         $this->db->trans_complete();
 
         return ($this->db->trans_status() == FALSE) ? false : true;
