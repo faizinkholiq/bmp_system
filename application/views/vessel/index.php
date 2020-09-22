@@ -2,6 +2,9 @@
     .table thead tr th{
         text-align: center!important;
     }
+    .hidden{
+        display:none!important;
+    }
 </style>
 
 <div class="row">
@@ -28,7 +31,7 @@
                 <button type="button" class="btn btn-primary" onclick="addAction()"><i class="fa fa-plus"></i></button>
                 <button type="button" class="btn btn-primary" onclick="detailAction()"><i class="fa fa-list-alt"></i></button>
                 <button type="button" class="btn btn-primary" onclick="editAction()"><i class="fa fa-edit"></i></button>
-                <button type="button" class="btn btn-primary" onclick="deleteAction()"><i class="fa fa-trash"></i></button>
+                <button type="button" class="btn btn-primary" onclick="deleteModal()"><i class="fa fa-trash"></i></button>
             </div><hr/>
             <table id="datatable_vessel" class="table table-bordered table-hover">
                 <thead>
@@ -242,6 +245,7 @@
     };
 
     var table = undefined;
+    var selected_id = undefined;
 
     $(function () {
         reloadDt();
@@ -275,9 +279,10 @@
             "ajax": urls.data,
             "columns": [{
                     "data": "id",
-                    "visible": false,
+                    "visible": true,
                     "orderable": false,
                     "searchable": false,
+                    "className": "hidden",
                 },
                 {
                     "data": "id",
@@ -356,7 +361,8 @@
                     "width": "350px"
                 },
             ],
-            scrollY:        "500px",
+            // scrollY:        screen.height - 490 + 'px',
+            scrollY:        '500px',
             scrollX:        true,
             scrollCollapse: true,
             paging:         true,
@@ -375,9 +381,11 @@
         $('#datatable_vessel tbody').on('click', 'tr', function () {
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
+                selected_id = undefined;
             } else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
+                selected_id = $(this).find('td')[0].innerText;
             }
         });
     }
@@ -389,14 +397,33 @@
     }
 
     function detailAction() {
+        $('#form_vessel').attr('action', urls.edit);
         $('#form_modal_vessel').modal('show');
     }
 
     function editAction() {
+        $('#form_vessel').attr('action', urls.edit);
         $('#form_modal_vessel').modal('show');
     }
 
+    function deleteModal() {
+        if(selected_id != undefined){
+            $('#modal_delete').modal('show');
+        }else{
+            $('.toast').toast('show');
+        }
+    }
+
     function deleteAction() {
-        $('#modal_delete').modal('show');
+        $.get(urls.delete+'/'+selected_id, function(result){
+            result = JSON.parse(result);
+            $('#modal_delete').modal('hide');
+            if(result.success){
+                alert('success');
+                table.ajax.reload();
+            }else{
+                alert('gagal');
+            }
+        });   
     }
 </script>

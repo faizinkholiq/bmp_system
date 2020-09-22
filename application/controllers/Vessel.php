@@ -11,6 +11,7 @@ class Vessel extends CI_Controller {
 
 	public function index()
 	{
+        $d['highlight_menu'] = "mn_vessel_list";
         $d['content_view'] = 'vessel/index';
 		$this->load->view('dashboard', $d);
 		// $this->load->view('login');
@@ -18,6 +19,7 @@ class Vessel extends CI_Controller {
     
     public function report()
 	{
+        $d['highlight_menu'] = "mn_vessel_report";
         $d['content_view'] = 'vessel/report';
 		$this->load->view('dashboard', $d);
     }

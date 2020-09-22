@@ -291,10 +291,10 @@
                 <h2>Logo</h2>
             </div>
             <ul class="sidebar-nav">
-                <li class="active">
+                <li id="mn_vessel_list">
                     <a href="<?=site_url('/vessel') ?>"><i class="fa fa-wrench"></i>Master Vessel List</a>
                 </li>
-                <li>
+                <li id="mn_vessel_report">
                     <a href="<?=site_url('/vessel/report') ?>"><i class="fa fa-file-text"></i>Report</a>
                 </li>
                 <li>
@@ -328,12 +328,18 @@
     <script type="text/javascript">
         const $button = document.querySelector('#sidebar-toggle');
         const $wrapper = document.querySelector('#wrapper');
+        var highlight_menu = "<?php echo !empty($highlight_menu)? $highlight_menu : '' ?>";
 
         $(document).ready(function () {
             $button.addEventListener('click', (e) => {
                 e.preventDefault();
                 $wrapper.classList.toggle('toggled');
             });
+
+            $("#sidebar-wrapper ul.sidebar-nav li").removeClass('active');
+            if(highlight_menu != ""){
+                $('#'+highlight_menu).addClass('active');
+            }
         });
     </script>
      <!-- MODULES JS -->

@@ -26,19 +26,27 @@
     public function create($data)
     {
         $this->db->insert('vessel_list', $data);
+
+        return ($this->db->affected_rows()>0) ? true : false;
     }
 
     public function edit($data)
     {   
-        $this->db->where(id, $data['id']);
+        $this->db->trans_start();
+        $this->db->where('id', $data['id']);
         unset($data['id']);
         $this->db->insert('vessel_list', $data);
+        $this->db->trans_complete();
+
+        return ($this->db->trans_status() == FALSE) ? false : true;
     }
 
     public function delete($id)
     {
-        $this->db->where(id, $id);
+        $this->db->where('id', $id);
         $this->db->delete('vessel_list');
+        
+        return ($this->db->affected_rows() > 0) ? true : false ;
     }
 
 }
