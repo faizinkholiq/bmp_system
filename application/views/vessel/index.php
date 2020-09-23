@@ -6,6 +6,10 @@
     .hidden {
         display: none !important;
     }
+
+    .lightRed{
+        background: red!important;
+    }
 </style>
 
 <div class="row">
@@ -276,6 +280,8 @@
     var table = undefined;
     var selected_id = undefined;
 
+    var today = new Date();
+
     $(function () {
         reloadDt();
 
@@ -399,6 +405,13 @@
             scrollX: true,
             scrollCollapse: true,
             paging: true,
+            createdRow: function( row, data, dataIndex ) {
+                
+                if ( new Date(data['period_finish']) != "Invalid Date" ) {
+                    
+                }
+                console.log(new Date(data['period_finish']) < today);
+            }
         });
 
         table.on('order.dt search.dt', function () {
