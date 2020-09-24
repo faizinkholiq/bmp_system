@@ -29,6 +29,19 @@
         background: #05c46b!important;
         color:white;
     }
+
+    .btn-paid{
+        padding: 0px 10px;
+        box-shadow: 2px 3px 6px -1px #585858;
+        font-weight:bold;        
+    }
+
+    .btn-paid.disabled{
+        background: #ddd;
+        border-color: #ddd;
+        color: #616161;
+        font-weight:bold;
+    }
 </style>
 
 <div class="row">
@@ -287,6 +300,28 @@
             </div>
         </div>
 
+        <div class="modal fade" id="modal_paid" tabindex="-1" role="dialog" aria-labelledby="modal_paid"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="form_modal_delete">Paid Modal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <span>Are you sure to paid this data?</span><br/>
+                        <span style="font-size:12px;">*If you want to paid the data, You can go to <b style="font-size:12px;">Vessel List by Paid</b>.</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="paidAction()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -298,6 +333,7 @@
         create: "<?=site_url()?>/vessel/create",
         edit: "<?=site_url()?>/vessel/edit",
         delete: "<?=site_url()?>/vessel/delete",
+        paid: "<?=site_url()?>/vessel/paid",
     };
 
     var table = undefined;
@@ -451,7 +487,9 @@
                 }
 
                 if(data['status'] != 'paid'){
-                    $(row).find('td')[9].innerHTML = '<button class="btn btn-primary">Paid</button>';
+                    $(row).find('td')[9].innerHTML = `<button onclick="paidModal(${data['id']})" class="btn btn-primary btn-paid">Paid</button>`;
+                }else{
+                    $(row).find('td')[9].innerHTML = `<button onclick="paidModal(${data['id']})" class="btn btn-primary btn-paid disabled" disabled>Paid</button>`;
                 }
             }, 
         });
@@ -523,6 +561,28 @@
         $.get(urls.delete + '/' + selected_id, function (result) {
             result = JSON.parse(result);
             $('#modal_delete').modal('hide');
+            if (result.success) {
+                alert(result.message);
+                table.ajax.reload();
+            } else {
+                alert(result.message);
+            }
+        });
+    }
+
+    function paidModal(id) {
+        selected_id = id;
+        if (selected_id != undefined) {
+            $('#modal_paid').modal('show');
+        } else {
+            alert('Please select a row first');
+        }
+    }
+
+    function paidAction() {
+        $.get(urls.paid + '/' + selected_id, function (result) {
+            result = JSON.parse(result);
+            $('#modal_paid').modal('hide');
             if (result.success) {
                 alert(result.message);
                 table.ajax.reload();

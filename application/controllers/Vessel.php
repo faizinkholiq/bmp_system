@@ -27,11 +27,38 @@ class Vessel extends CI_Controller {
 		$this->load->view('dashboard', $d);
     }
 
-    public function paid()
+    public function paid($id = null)
 	{
-        $d['highlight_menu'] = "mn_vessel_list_paid";
-        $d['content_view'] = 'vessel/paid';
-		$this->load->view('dashboard', $d);
+        if(!empty($id)){
+            $nd['status'] = 'paid'; 
+            $nd['id'] = $id;
+            $detail = $this->vessel_model->get_detail($nd['id']);
+
+            if($detail){
+                if($this->vessel_model->edit($nd)){
+                    $data = [
+                        'success' => 1,
+                        'message' => 'Update data success ',
+                    ];
+                }else{
+                    $data = [
+                        'success' => 0,
+                        'message' => 'Update data failed ',
+                    ];
+                }
+            }else{
+                $data = [
+                    'success' => 0,
+                    'message' => 'id not found ',
+                ];
+            }
+
+            echo json_encode($data);
+        }else{
+            $d['highlight_menu'] = "mn_vessel_list_paid";
+            $d['content_view'] = 'vessel/paid';
+            $this->load->view('dashboard', $d);
+        }
     }
     
     public function data()
