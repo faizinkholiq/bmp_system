@@ -3,12 +3,31 @@
         text-align: center !important;
     }
 
+    .table tbody tr:hover td{
+        background: #eee;
+    }
+
+    .table tbody tr.selected{
+        background: #eee;
+        color: black;
+    }
+
     .hidden {
         display: none !important;
     }
 
-    .lightRed{
-        background: red!important;
+    .my-red{
+        background: #eb4d4b!important;
+        color:white;
+    }
+
+    .my-yellow{
+        background: #ffd32a!important;
+    }
+
+    .my-green{
+        background: #05c46b!important;
+        color:white;
     }
 </style>
 
@@ -47,6 +66,7 @@
                         color: #383838;
                         font-weight: bold;
                         box-shadow: 0px 1px 5px 0px #848484;
+                        margin-left: 10px
                     "><i class="fa fa-list-alt"></i></button>
                     <button type="button" class="btn btn-primary" onclick="editAction()" style="
                         border: none;
@@ -54,12 +74,14 @@
                         color: #383838;
                         font-weight: bold;
                         box-shadow: 0px 1px 5px 0px #848484;
+                        margin-left: 10px
                     "><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-primary" onclick="deleteModal()" style="
                         border: none;
                         background: #d63031; 
                         font-weight: bold;
                         box-shadow: 0px 1px 5px 0px #848484;
+                        margin-left: 10px
                     "><i class="fa fa-trash"></i></button>
                 </div>
                 <hr />
@@ -75,6 +97,7 @@
                             <th rowspan="2" scope="col">GT</th>
                             <th rowspan="2" scope="col">Flag</th>
                             <th rowspan="2" scope="col">Class</th>
+                            <th rowspan="2" scope="col">Status</th>
                             <th colspan="2" scope="col">Period</th>
                             <th rowspan="2" scope="col">TSI</th>
                             <th rowspan="2" scope="col">Banker Clause</th>
@@ -362,6 +385,11 @@
                     "className": "text-center",
                 },
                 {
+                    "data": "status",
+                    "width": "50px",
+                    "className": "text-center",
+                },
+                {
                     "data": "period_start",
                     "width": "100px",
                     "className": "text-center",
@@ -406,12 +434,26 @@
             scrollCollapse: true,
             paging: true,
             createdRow: function( row, data, dataIndex ) {
-                
-                if ( new Date(data['period_finish']) != "Invalid Date" ) {
-                    
+                let this_date = new Date(data['period_finish']); 
+                if ( this_date != "Invalid Date" && data['status'] != 'paid') {
+
+                    const oneDay = 24 * 60 * 60 * 1000;
+                    const diff = Math.round(Math.abs((this_date - today) / oneDay));
+                    if(today > this_date){
+                        $(row).addClass( 'my-red' );
+                    }else{
+                        if(diff<=7){
+                            $(row).addClass( 'my-yellow' );
+                        }else if(diff<=30){
+                            $(row).addClass( 'my-green' );
+                        }
+                    }
                 }
-                console.log(new Date(data['period_finish']) < today);
-            }
+
+                if(data['status'] != 'paid'){
+                    $(row).find('td')[9].innerHTML = '<button class="btn btn-primary">Paid</button>';
+                }
+            }, 
         });
 
         table.on('order.dt search.dt', function () {

@@ -122,10 +122,13 @@
 
         #navbar-wrapper .navbar {
             border-width: 0 0 0 0;
-            background-color: #eee;
+            background-color: #fff;
             font-size: 24px;
             margin-bottom: 0;
             border-radius: 0;
+            box-shadow: 1px 1px 7px 1px #aaa;
+            position: fixed;
+            width: 100%;
         }
 
         #navbar-wrapper .navbar a {
@@ -185,7 +188,7 @@
 
             #content-wrapper {
                 position: relative;
-                top: 0;
+                top: 50px;
             }
 
             #wrapper.toggled #navbar-wrapper,
@@ -293,6 +296,9 @@
             <ul class="sidebar-nav">
                 <li id="mn_vessel_list">
                     <a href="<?=site_url('/vessel') ?>"><i class="fa fa-wrench"></i>Master Vessel List</a>
+                </li>
+                <li id="mn_vessel_list_paid">
+                    <a href="<?=site_url('/vessel/paid') ?>"><i class="fa fa-dollar"></i>Vessel List by Paid</a>
                 </li>
                 <li id="mn_vessel_report">
                     <a href="<?=site_url('/vessel/report') ?>"><i class="fa fa-file-text"></i>Report</a>

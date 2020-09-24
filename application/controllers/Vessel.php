@@ -26,12 +26,20 @@ class Vessel extends CI_Controller {
         $d['content_view'] = 'vessel/report';
 		$this->load->view('dashboard', $d);
     }
+
+    public function paid()
+	{
+        $d['highlight_menu'] = "mn_vessel_list_paid";
+        $d['content_view'] = 'vessel/paid';
+		$this->load->view('dashboard', $d);
+    }
     
     public function data()
     {  
 
         $d['start_date'] = $this->input->get('start_date');
         $d['finish_date'] = $this->input->get('finish_date');
+        $d['status'] = $this->input->get('status');
 
         $data['data'] = $this->vessel_model->get_data($d);
         echo json_encode($data);
