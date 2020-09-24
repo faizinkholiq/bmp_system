@@ -16,12 +16,15 @@
 
             if(!empty($p['status'])){
                 $this->db->where("status", $p['status']);
+            }else{
+                $this->db->where("status IS NULL");
             }
         }
         $this->db->select([
             'vessel_list.*',
             'FORMAT(vessel_list.tsi, 0) as tsi'
         ]);
+        
         return $this->db->get('vessel_list')->result_array();
     }
 
