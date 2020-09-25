@@ -42,6 +42,16 @@
         color: #616161;
         font-weight:bold;
     }
+
+    .legend-list{
+        display: inline-flex;
+        list-style: none;
+        margin: 0;
+    }
+
+    .legend-list li{
+        margin: 0 10px;
+    }
 </style>
 
 <div class="row">
@@ -65,7 +75,7 @@
                 Master Vessel List
             </div>
             <div class="card-body">
-                <div>
+                <div class="my-toolbar">
                     <button type="button" class="btn btn-primary" onclick="addAction()" style="
                         border: none;
                         background: white;
@@ -96,6 +106,13 @@
                         box-shadow: 0px 1px 5px 0px #848484;
                         margin-left: 10px
                     "><i class="fa fa-trash"></i></button>
+                    <div class="my-legend" style="display: inline-block">
+                        <ul class="legend-list">
+                            <li>Jatuh Tempo</li>
+                            <li>< 7</li>
+                            <li>< 30</li>
+                        </ul>
+                    </div>
                 </div>
                 <hr />
                 <table id="datatable_vessel" class="table table-bordered table-hover">
