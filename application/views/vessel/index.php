@@ -357,12 +357,22 @@
                 success: function (result) {
                     result = JSON.parse(result); 
                     if (result.success) {
-                        alert(result.message);
+                        Swal.fire({
+                            icon: 'success',
+                            title: result.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                         $('#form_vessel')[0].reset();
                         $('#form_modal_vessel').modal('hide');
                         table.ajax.reload();
                     } else {
-                        alert(result.message);
+                        Swal.fire({
+                            icon: 'error',
+                            title: result.message,
+                            showConfirmButton: true,
+                            confirmButtonText: 'OK'
+                        });
                     }
                 }
             });
@@ -562,10 +572,20 @@
             result = JSON.parse(result);
             $('#modal_delete').modal('hide');
             if (result.success) {
-                alert(result.message);
+                Swal.fire({
+                    icon: 'success',
+                    title: result.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 table.ajax.reload();
             } else {
-                alert(result.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: result.message,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK'
+                });
             }
         });
     }
@@ -589,10 +609,20 @@
             result = JSON.parse(result);
             $('#modal_paid').modal('hide');
             if (result.success) {
-                alert(result.message);
+                Swal.fire({
+                    icon: 'success',
+                    title: result.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 table.ajax.reload();
             } else {
-                alert(result.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: result.message,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK'
+                });
             }
         });
     }

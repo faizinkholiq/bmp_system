@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="<?=base_url() ?>assets/bootstrap/4.5.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?=base_url() ?>assets/DataTables/DataTables-1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?=base_url() ?>assets/font-awesome-4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="<?=base_url() ?>assets/sweetalert2/dist/sweetalert2.min.css">
     <!-- JS -->
     <script src="<?=base_url() ?>assets/jquery/3.5.1/dist/jquery.min.js"></script>
     <script src="<?=base_url() ?>assets/bootstrap/4.5.2/dist/js/bootstrap.min.js"></script>
     <script src="<?=base_url() ?>assets/DataTables/DataTables-1.10.21/js/jquery.dataTables.min.js"></script>
     <script src="<?=base_url() ?>assets/DataTables/DataTables-1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?=base_url() ?>assets/sweetalert2/dist/sweetalert2.min.js"></script>
 
     <title>Hello, world!</title>
     <style>
