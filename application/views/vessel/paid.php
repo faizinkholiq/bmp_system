@@ -2,6 +2,11 @@
     .table thead tr th{
         text-align: center!important;
     }
+    .btn-paid{
+        padding: 0px 10px;
+        box-shadow: 2px 3px 6px -1px #585858;
+        font-weight:bold;        
+    }
 </style>
 
 <div class="row">
@@ -24,6 +29,7 @@
                         <th rowspan="2" scope="col">GT</th>
                         <th rowspan="2" scope="col">Flag</th>
                         <th rowspan="2" scope="col">Class</th>
+                        <th rowspan="2" scope="col">Status</th>
                         <th colspan="2" scope="col">Period</th>
                         <th rowspan="2" scope="col">TSI</th>
                         <th rowspan="2" scope="col">Banker Clause</th>
@@ -109,6 +115,11 @@
                     "className": "text-center",
                 },
                 {
+                    "data": "status",
+                    "width": "50px",
+                    "className": "text-center",
+                },
+                {
                     "data": "period_start",
                     "width": "100px",
                     "className": "text-center",
@@ -151,6 +162,9 @@
             scrollX:        true,
             scrollCollapse: true,
             paging:         true,
+            createdRow: function( row, data, dataIndex ) {
+                $(row).find('td')[9].innerHTML = `<button onclick="paidModal(${data['id']})" class="btn btn-primary btn-paid">Unpaid</button>`;
+            },
         });
 
         table.on('order.dt search.dt', function () {
