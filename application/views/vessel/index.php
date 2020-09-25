@@ -580,7 +580,12 @@
     }
 
     function paidAction() {
-        $.get(urls.paid + '/' + selected_id, function (result) {
+        let data = {
+            id: selected_id,
+            value: 'paid'
+        }
+
+        $.get(urls.paid, $.param(data), function (result) {
             result = JSON.parse(result);
             $('#modal_paid').modal('hide');
             if (result.success) {

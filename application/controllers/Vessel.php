@@ -27,10 +27,10 @@ class Vessel extends CI_Controller {
 		$this->load->view('dashboard', $d);
     }
 
-    public function paid($id = null)
+    public function paid()
 	{
-        if(!empty($id)){
-            $nd['status'] = 'paid'; 
+        if(!empty($id = $this->input->get('id'))){
+            $nd['status'] = $this->input->get('value'); 
             $nd['id'] = $id;
             $detail = $this->vessel_model->get_detail($nd['id']);
 

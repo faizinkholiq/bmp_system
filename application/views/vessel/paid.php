@@ -2,6 +2,9 @@
     .table thead tr th{
         text-align: center!important;
     }
+    .hidden {
+        display: none !important;
+    }
     .btn-paid{
         padding: 0px 10px;
         box-shadow: 2px 3px 6px -1px #585858;
@@ -46,6 +49,29 @@
             </table>
         </div>
     </div>
+
+    <div class="modal fade" id="modal_paid" tabindex="-1" role="dialog" aria-labelledby="modal_paid"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="form_modal_delete">Paid Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>Are you sure to paid this data?</span><br/>
+                    <span style="font-size:12px;">*If you want to paid the data, You can go to <b style="font-size:12px;">Vessel List by Paid</b>.</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="paidAction()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </div>
 </div>
 
@@ -54,6 +80,7 @@
         base: "<?=site_url()?>",
         data: "<?=site_url()?>/vessel/data",
         export: "<?=site_url()?>/vessel/data",
+        paid: "<?=site_url()?>/vessel/paid",
     };
 
     var table = undefined;
@@ -72,9 +99,10 @@
             "ajax": urls.data +'?'+ $.param(filter),
             "columns": [{
                     "data": "id",
-                    "visible": false,
+                    "visible": true,
                     "orderable": false,
                     "searchable": false,
+                    "className": "hidden",
                 },
                 {
                     "data": "id",
@@ -183,6 +211,33 @@
             } else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
+            }
+        });
+    }
+
+    function paidModal(id) {
+        selected_id = id;
+        if (selected_id != undefined) {
+            $('#modal_paid').modal('show');
+        } else {
+            alert('Please select a row first');
+        }
+    }
+
+    function paidAction() {
+        let data = {
+            id: selected_id,
+            value: null
+        }
+
+        $.get(urls.paid, $.param(data), function (result) {
+            result = JSON.parse(result);
+            $('#modal_paid').modal('hide');
+            if (result.success) {
+                alert(result.message);
+                table.ajax.reload();
+            } else {
+                alert(result.message);
             }
         });
     }

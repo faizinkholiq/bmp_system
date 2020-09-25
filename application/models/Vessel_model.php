@@ -17,7 +17,8 @@
             if(!empty($p['status'])){
                 $this->db->where("status", $p['status']);
             }else{
-                $this->db->where("status IS NULL");
+                $this->db->where("status !=  'paid'");
+                $this->db->or_where("status IS NULL");
             }
         }
         $this->db->select([
