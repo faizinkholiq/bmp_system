@@ -22,9 +22,18 @@ class Vessel extends CI_Controller {
     
     public function report()
 	{
-        $d['highlight_menu'] = "mn_vessel_report";
-        $d['content_view'] = 'vessel/report';
-		$this->load->view('dashboard', $d);
+        
+        if($this->input->get('mode') == 'export'){
+            $d['status'] = $this->input->get('status');
+            $d['data'] = $this->vessel_model->get_data($d);
+            $d['filename'] = 'Vessel_list_'.date('Ymd');
+            $this->excel($d);
+        }else{
+            $d['highlight_menu'] = "mn_vessel_report";
+            $d['content_view'] = 'vessel/report';
+            
+            $this->load->view('dashboard', $d);
+        }
     }
 
     public function paid()
@@ -183,7 +192,7 @@ class Vessel extends CI_Controller {
         return $nd;
     }
 
-    public function excel()
+    public function excel($d)
     {
 
         $spreadsheet = new Spreadsheet();
@@ -207,10 +216,9 @@ class Vessel extends CI_Controller {
         //     $x++;
         // }
         $writer = new Xlsx($spreadsheet);
-        $filename = 'laporan-siswa';
         
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); 
+        header('Content-Disposition: attachment;filename="'. $d['filename'] .'.xlsx"'); 
         header('Cache-Control: max-age=0');
 
         $writer->save('php://output');

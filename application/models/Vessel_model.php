@@ -15,7 +15,18 @@
             }
 
             if(!empty($p['status'])){
-                $this->db->where("status", $p['status']);
+                switch($p['status']){
+                    case 'paid':
+                        $this->db->where("status", $p['status']);
+                    break;
+                    case 'deadlines':
+                        $this->db->group_start();
+                        $this->db->where("status !=  'paid'");
+                        $this->db->or_where("status IS NULL");
+                        $this->db->group_end();
+                        $this->db->where('period_finish < NOW()');
+                    break;
+                }
             }else{
                 $this->db->where("status !=  'paid'");
                 $this->db->or_where("status IS NULL");

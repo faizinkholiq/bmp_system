@@ -40,7 +40,7 @@
 
         #wrapper {
             padding-left: 0;
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
             position: relative;
         }
 
@@ -54,7 +54,7 @@
             overflow-y: auto;
             overflow-x: hidden;
             background: #222;
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
         }
 
         #wrapper.toggled #sidebar-wrapper {
@@ -283,6 +283,25 @@
 
         .table tbody tr.selected td{
             background: #eee;
+        }
+        
+        .btn{
+            border: none;
+            font-weight: bold;
+            box-shadow: 0px 1px 5px 0px #848484;
+        }
+
+        .btn:focus{
+            box-shadow: 0px 1px 5px 0px #848484!important;
+        }
+
+        .btn-primary{
+            background: white;
+            color: #383838;
+        }
+
+        .card-header{
+            font-weight:bold;
         }
     </style>
 </head>

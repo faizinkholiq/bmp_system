@@ -8,7 +8,9 @@
     .btn-paid{
         padding: 0px 10px;
         box-shadow: 2px 3px 6px -1px #585858;
-        font-weight:bold;        
+        font-weight:bold; 
+        background: #007bff;    
+        color: white;   
     }
 </style>
 
@@ -220,7 +222,12 @@
         if (selected_id != undefined) {
             $('#modal_paid').modal('show');
         } else {
-            alert('Please select a row first');
+            Swal.fire({
+                icon: 'info',
+                title: 'Please select a row first',
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            });
         }
     }
 

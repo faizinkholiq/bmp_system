@@ -2,6 +2,8 @@
     .table thead tr th{
         text-align: center!important;
     }
+    select.form-control{
+    }
 </style>
 
 <div class="row">
@@ -12,13 +14,15 @@
         </div>
         <div class="card-body">
             <div style="width: 100%;height: 30px;">
-                <span style="font-weight: bold; margin-right: 20px">Period :</span>
-                <input style="width:170px; display: inline-block" type="date" name="period_start" class="form-control" id="form_period_start">
-                <span style="font-weight: bold; font-size: 20px; margin: 0 15px;">-</span>
-                <input style="width:170px; display: inline-block" type="date" name="period_finish" class="form-control" id="form_period_finish">
-                <button style="display: inline-block; margin-left: 10px;" type="button" class="btn btn-primary" onclick="searchData()"><i class="fa fa-search"></i><span style="margin-left: 10px;">Search</span></button>
+                <span style="font-weight: bold; margin-right: 20px">Status :</span>
+                <select class="form-control" name="status" id="form_status" style="width: 170px; display:inline-block">
+                    <option value="all">All</option>
+                    <option value="paid">Paid</option>
+                    <option value="deadlines">Jatuh tempo</option>
+                </select>
+                <button style="display: inline-block; margin-left: 10px; background: #007bff; color: white;" type="button" class="btn btn-primary" onclick="searchData()"><i class="fa fa-search"></i><span style="margin-left: 10px;">Search</span></button>
 
-                <button style="float: right; display: inline-block" type="button" class="btn btn-primary" onclick="exportAction()"><i class="fa fa-file-excel-o"></i><span style="margin-left: 10px;">Export</span></button>
+                <button style="float: right; display: inline-block; background: #16a085; color: white;" type="button" class="btn btn-primary" onclick="exportAction()"><i class="fa fa-file-excel-o"></i><span style="margin-left: 10px;">Export</span></button>
             </div><hr/>
             <table id="datatable_vessel" class="table table-bordered table-hover">
                 <thead>
@@ -55,7 +59,7 @@
     var urls = {
         base: "<?=site_url()?>",
         data: "<?=site_url()?>/vessel/data",
-        export: "<?=site_url()?>/vessel/data",
+        export: "<?=site_url()?>/vessel/report",
     };
 
     var table = undefined;
@@ -178,8 +182,7 @@
 
     function searchData() {
         var data = {
-            start_date: $('#form_period_start').val(),
-            finish_date: $('#form_period_finish').val(),
+            status: $('#form_status').val(),
         };
 
         if(table != undefined){
@@ -192,5 +195,11 @@
     }
 
     function exportAction() {
+        let data = {
+            mode: 'export',
+            status: $('#form_status').val(),
+        };
+
+        window.open(urls.export+'?'+$.param(data), '_blank');
     }
 </script>

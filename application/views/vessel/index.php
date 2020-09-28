@@ -43,14 +43,56 @@
         font-weight:bold;
     }
 
+    .my-toolbar{
+        width: 100%;
+        height:75px;
+    }
+
+    .my-legend{
+        display: inline-block;
+        vertical-align: bottom;
+        float: right;
+        margin-right: 0px;
+        margin-top: -4px;
+        padding: 8px 13px;
+        box-shadow: 1px 1px 5px 1px #aaa;
+        border-radius: 5px;
+    }
+
     .legend-list{
-        display: inline-flex;
+        display: inline-block;
         list-style: none;
         margin: 0;
+        vertical-align: top;
+        padding: 0;
     }
 
     .legend-list li{
-        margin: 0 10px;
+        margin: 0 15px;
+        opacity: 1;
+        transition: opacity 0.2s;
+        cursor: pointer;
+    }
+
+    .legend-list li:hover{
+        opacity: 0.5;
+    }
+
+    .legend-list li.active{
+        opacity: 0.5;
+    }
+
+    .legend-color{
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+        border-radius: 4px;
+        vertical-align: text-top;
+    }
+
+    .legend-text{
+        margin-left: 10px;
+        font-weight:bold;
     }
 </style>
 
@@ -76,41 +118,20 @@
             </div>
             <div class="card-body">
                 <div class="my-toolbar">
-                    <button type="button" class="btn btn-primary" onclick="addAction()" style="
-                        border: none;
-                        background: white;
-                        color: #383838;
-                        font-weight: bold;
-                        box-shadow: 0px 1px 5px 0px #848484;
-                    "><i class="fa fa-plus"></i></button>
-                    <button type="button" class="btn btn-primary" onclick="detailAction()" style="
-                        border: none;
-                        background: white;
-                        color: #383838;
-                        font-weight: bold;
-                        box-shadow: 0px 1px 5px 0px #848484;
-                        margin-left: 10px
-                    "><i class="fa fa-list-alt"></i></button>
-                    <button type="button" class="btn btn-primary" onclick="editAction()" style="
-                        border: none;
-                        background: white;
-                        color: #383838;
-                        font-weight: bold;
-                        box-shadow: 0px 1px 5px 0px #848484;
-                        margin-left: 10px
-                    "><i class="fa fa-edit"></i></button>
-                    <button type="button" class="btn btn-primary" onclick="deleteModal()" style="
-                        border: none;
-                        background: #d63031; 
-                        font-weight: bold;
-                        box-shadow: 0px 1px 5px 0px #848484;
-                        margin-left: 10px
+                    <button type="button" class="btn btn-primary" onclick="addAction()" ><i class="fa fa-plus"></i></button>
+                    <button type="button" class="btn btn-primary" onclick="detailAction()"><i class="fa fa-list-alt"></i></button>
+                    <button type="button" class="btn btn-primary" onclick="editAction()"><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn" onclick="deleteModal()" style="
+                        background: #d63031;
+                        color: white;
                     "><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-primary" onclick="clearFilter()"><i class="fa fa-close"></i>&nbsp;Clear Filter</button>
                     <div class="my-legend" style="display: inline-block">
+                        <span style="margin-right: 5px;">Status :</span>
                         <ul class="legend-list">
-                            <li>Jatuh Tempo</li>
-                            <li>< 7</li>
-                            <li>< 30</li>
+                            <li data-value="deadlines" onclick="statusFilter(this)"><div class="legend-color my-red"></div><span class="legend-text">Jatuh Tempo</span></li>
+                            <li data-value="7" onclick="statusFilter(this)"><div class="legend-color my-yellow"></div><span class="legend-text">< 7</span></li>
+                            <li data-value="30" onclick="statusFilter(this)"><div class="legend-color my-green"></div><span class="legend-text">< 30</span></li>
                         </ul>
                     </div>
                 </div>
@@ -398,10 +419,10 @@
         });
     });
 
-    function reloadDt() {
+    function reloadDt(filter = null) {
         table = $('#datatable_vessel').DataTable({
             "processing": true,
-            "ajax": urls.data,
+            "ajax": urls.data + '?' + $.param(filter),
             "columns": [{
                     "data": "id",
                     "visible": true,
@@ -559,7 +580,12 @@
                 disableForm();
             });
         } else {
-            alert('Please select a row first');
+            Swal.fire({
+                icon: 'info',
+                title: 'Please select a row first',
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            });
         }
     }
 
@@ -572,7 +598,12 @@
                 enableForm();
             });
         } else {
-            alert('Please select a row first');
+            Swal.fire({
+                icon: 'info',
+                title: 'Please select a row first',
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            });
         }
     }
 
@@ -580,7 +611,12 @@
         if (selected_id != undefined) {
             $('#modal_delete').modal('show');
         } else {
-            alert('Please select a row first');
+            Swal.fire({
+                icon: 'info',
+                title: 'Please select a row first',
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            });
         }
     }
 
@@ -612,7 +648,12 @@
         if (selected_id != undefined) {
             $('#modal_paid').modal('show');
         } else {
-            alert('Please select a row first');
+            Swal.fire({
+                icon: 'info',
+                title: 'Please select a row first',
+                showConfirmButton: true,
+                confirmButtonText: 'OK'
+            });
         }
     }
 
@@ -663,5 +704,31 @@
         $('#form_vessel select').attr('disabled', true);
         $('#btn_form_save').hide();
         $('#btn_form_edit').show();
+    }
+
+    function statusFilter(val){
+        $(val).siblings().removeClass('active');
+        $(val).addClass('active');
+
+        var data = {
+            status: $(val).data('value'),
+        };
+
+        refreshData(data);
+    }
+
+    function clearFilter(){
+        $('.legend-list li').removeClass('active');
+        refreshData();
+    }
+
+    function refreshData(filter = null){
+        if(table != undefined){
+            if(table.destroy()){
+                reloadDt(filter);
+            }
+        }else{
+            reloadDt(filter);
+        }
     }
 </script>
